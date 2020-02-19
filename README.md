@@ -12,3 +12,5 @@ Goto "Administration -> Authentication -> Shibboleth and configure user profile 
 
 Choose "Update this field on login" if the matricalation field should modified on every login request.
 
+Debug messages are triggered with "component log level" DEBUG in "Administration -> Logging
+
