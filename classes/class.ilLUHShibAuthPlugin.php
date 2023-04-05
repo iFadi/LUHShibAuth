@@ -5,10 +5,11 @@ include_once './Services/AuthShibboleth/classes/class.ilShibbolethAuthentication
 /**
  * Shibboleth authentication plugin for matriculation number modification
  * @author Stefan Meyer <smeyer.ilias@gmx.de>
+ * @author Fadi Asbih <asbih@elsa.uni-hannover.de>
  **/
-class ilUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
+class ilLUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
 {
-    const PLNAME = 'UHShibAuth';
+    const PLNAME = 'LUHShibAuth';
 
     /**
      * @var string
@@ -33,7 +34,7 @@ class ilUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
     /**
      * @inheritDoc
      */
-    protected function init()
+    protected function init(): void
     {
         global $DIC;
 
@@ -45,7 +46,7 @@ class ilUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
      * Get plugin name
      * @return string
      */
-    public function getPluginName()
+    public function getPluginName(): string
     {
         return static::PLNAME;
     }
@@ -54,12 +55,10 @@ class ilUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
      * @param ilObjUser $user
      * @return ilObjUser
      */
-    public function beforeCreateUser(ilObjUser $user)
+    public function beforeCreateUser(ilObjUser $user): ilObjUser
     {
         $this->logger->debug('Before user creation');
-
         $user = $this->updateMatriculation($user, true);
-
 
         return $user;
     }
@@ -68,10 +67,9 @@ class ilUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
      * @param ilObjUser $user
      * @return ilObjUser
      */
-    public function beforeUpdateUser(ilObjUser $user)
+    public function beforeUpdateUser(ilObjUser $user): ilObjUser
     {
         $this->logger->debug('Before user update');
-
         $user = $this->updateMatriculation($user, false);
 
         return $user;
