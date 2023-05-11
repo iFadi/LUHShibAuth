@@ -59,6 +59,7 @@ class ilLUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
     {
         $this->logger->debug('Before user creation');
         $user = $this->updateMatriculation($user, true);
+        $user = $this->updateLogin($user);
 
         return $user;
     }
@@ -75,6 +76,12 @@ class ilLUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
         return $user;
     }
 
+    public function updateLogin(ilObjUser $user)
+    {
+        $this->logger->debug('Username is being set as the LUH-ID:' . $user->getExternalAccount());
+
+        $user->setLogin($user->getExternalAccount());
+    }
     /**
      * @param ilObjUser $user
      * @param bool      $is_creation_mode
