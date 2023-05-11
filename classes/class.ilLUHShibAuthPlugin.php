@@ -79,8 +79,9 @@ class ilLUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
     public function updateLogin(ilObjUser $user)
     {
         $this->logger->debug('Username is being set as the LUH-ID:' . $user->getExternalAccount());
-
         $user->setLogin($user->getExternalAccount());
+
+        return $user;
     }
     /**
      * @param ilObjUser $user
