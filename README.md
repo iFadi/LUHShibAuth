@@ -1,6 +1,6 @@
 # LUHShibAuth
 
-This plugin parses the matricule number from WebSSO for the Leibniz Universität Hannover.
+This plugin parses the matricule number from WebSSO for the Leibniz Universität Hannover, it also sets the login USERNAME as the LUH-ID instead of the default ILIAS Shib login prefix: {firstname.lastname}
 
 ## Installation
 
@@ -23,6 +23,8 @@ If you do not see the plugin under "Administration" > "Plugins", in your {ILIAS 
 ```bash
 composer install --no-dev
 ```
+to check if there are errors.
 
 ## Tested on the following ILIAS Versions:
-* v8.0
+* v7.x
+* v8.x

@@ -3,7 +3,10 @@
 include_once './Services/AuthShibboleth/classes/class.ilShibbolethAuthenticationPlugin.php';
 
 /**
- * Shibboleth authentication plugin for matriculation number modification
+ * Shibboleth authentication plugin for:
+ * matriculation number modification
+ * login username modification
+ *
  * @author Stefan Meyer <smeyer.ilias@gmx.de>
  * @author Fadi Asbih <asbih@elsa.uni-hannover.de>
  **/
@@ -76,6 +79,13 @@ class ilLUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
         return $user;
     }
 
+    /**
+     * @param ilObjUser $user
+     * @return ilObjUser
+     *
+     * Sets the User Login when first time signing in as the LUH-ID
+     *
+     */
     public function updateLogin(ilObjUser $user)
     {
         $this->logger->debug('Username is being set as the LUH-ID:' . $user->getExternalAccount());
@@ -83,6 +93,7 @@ class ilLUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
 
         return $user;
     }
+
     /**
      * @param ilObjUser $user
      * @param bool      $is_creation_mode
@@ -125,5 +136,3 @@ class ilLUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
         return $user;
     }
 }
-
-?>
