@@ -62,7 +62,7 @@ class ilLUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
     {
         $this->logger->debug('Before user creation');
         $user = $this->updateMatriculation($user, true);
-        $user = $this->updateLogin($user);
+        $user = $this->createCustomShibLogin($user);
 
         return $user;
     }
@@ -86,10 +86,21 @@ class ilLUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
      * Sets the User Login when first time signing in as the LUH-ID
      *
      */
-    public function updateLogin(ilObjUser $user)
+    public function createCustomShibLogin(ilObjUser $user)
     {
-        $this->logger->debug('Username is being set as the LUH-ID:' . $user->getExternalAccount());
-        $user->setLogin($user->getExternalAccount());
+        // Get the external account value
+        $login = $user->getExternalAccount();
+        $login = strtoupper($login);
+
+        // fallback mechanism using first name and last name
+        // if ext_account is not empty, use it as login
+        if (!empty($login)) {
+            $user->setLogin($login);
+            $this->logger->debug('ext_accout is found, username is being set now as the LUH-ID:' . $user->getExternalAccount());
+        }
+        else { // else if ext_account is empty do nothing, uses ILIAS default login scheme
+            $this->logger->debug('ext_account is not found, falling back to the ILIAS default login');
+        }
 
         return $user;
     }

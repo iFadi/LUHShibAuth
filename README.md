@@ -1,6 +1,6 @@
 # LUHShibAuth
 
-This plugin parses the matricule number from WebSSO for the Leibniz Universität Hannover, it also sets the login USERNAME as the LUH-ID instead of the default ILIAS Shib login prefix: {firstname.lastname}
+This plugin parses the matriculate number from WebSSO for the Leibniz University Hanover, it also sets the login {USERNAME} as the LUH-ID instead of the default ILIAS Shibboleth login prefix: {firstname.lastname}
 
 ## Installation
 
@@ -25,6 +25,12 @@ composer install --no-dev
 ```
 to check if there are errors.
 
-## Tested on the following ILIAS Versions:
+## Tested on the following ILIAS Versions
 * v7.x
 * v8.x
+
+## Changelog
+
+#### v1.0.1:
+* Add falling back mechanism to the default ILIAS login, if "ext_account" is not available
+* Login/Username is now all in capital
