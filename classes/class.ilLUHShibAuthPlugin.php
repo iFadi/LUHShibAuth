@@ -23,7 +23,7 @@ class ilLUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
      * @var string
      */
     const SHIB_MATRICULATION_UPDATE = 'shib_update_matriculation';
-    
+
     /**
      * @var null | \ilSetting
      */
