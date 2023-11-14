@@ -40,10 +40,6 @@ class ilLUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
     protected function init(): void
     {
         global $DIC;
-
-        if ($this->logger !== null) {
-            $this->logger = $DIC->logger()->auth();
-        }
         $this->settings = $DIC->settings();
     }
 
@@ -62,6 +58,9 @@ class ilLUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
      */
     public function beforeCreateUser(ilObjUser $user): ilObjUser
     {
+        global $DIC;
+        $this->logger = $DIC->logger()->auth();
+
         $this->logger->debug('Before user creation');
         $user = $this->updateMatriculation($user, true);
         $user = $this->createCustomShibLogin($user);
@@ -75,6 +74,9 @@ class ilLUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
      */
     public function beforeUpdateUser(ilObjUser $user): ilObjUser
     {
+        global $DIC;
+        $this->logger = $DIC->logger()->auth();
+
         $this->logger->debug('Before user update');
         $user = $this->updateMatriculation($user, false);
 
@@ -90,6 +92,9 @@ class ilLUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
      */
     public function createCustomShibLogin(ilObjUser $user)
     {
+        global $DIC;
+        $this->logger = $DIC->logger()->auth();
+
         // Get the external account value
         $login = $user->getExternalAccount();
         $login = strtoupper($login);
@@ -114,6 +119,9 @@ class ilLUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
      */
     private function updateMatriculation(\ilObjUser $user, bool $is_creation_mode)
     {
+        global $DIC;
+        $this->logger = $DIC->logger()->auth();
+
         $shib_mn_field = $this->settings->get(self::SHIB_MATRICULATION_FIELD, '');
         if (!strlen($shib_mn_field)) {
             $this->logger->debug('No matriculation number mapping configured');
