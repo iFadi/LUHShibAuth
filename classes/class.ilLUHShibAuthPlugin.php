@@ -40,8 +40,6 @@ class ilLUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
     protected function init(): void
     {
         global $DIC;
-
-        $this->getLogger(); // This will initialize the logger if it's not already
         $this->settings = $DIC->settings();
     }
 
