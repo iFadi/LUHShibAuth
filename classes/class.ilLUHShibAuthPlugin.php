@@ -40,8 +40,8 @@ class ilLUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
     protected function init(): void
     {
         global $DIC;
-        DIC["component.factory"]>logger()->auth();
-        //$this->logger = $DIC-
+
+        $this->logger = $DIC['logger.factory']->getLogger('auth');
         $this->settings = $DIC->settings();
     }
 
