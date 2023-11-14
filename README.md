@@ -10,6 +10,11 @@ mkdir -p Customizing/global/plugins/Services/AuthShibboleth/ShibbolethAuthentica
 cd Customizing/global/plugins/Services/AuthShibboleth/ShibbolethAuthenticationHook
 git clone https://github.com/iFadi/LUHShibAuth.git
 ```
+
+Now check a specific Tag:
+```bash
+git checkout v1.0.2
+```
 Goto "Administration -> Plugin" and install and activate the plugin.
 
 Goto "Administration -> Authentication -> Shibboleth and configure user profile mapping "Attribut für Matrikelnummer => schacPersonalUniqueCode"
@@ -26,10 +31,12 @@ composer install --no-dev
 to check if there are errors.
 
 ## Tested on the following ILIAS Versions
-* v7.x
 * v8.x
 
 ## Changelog
+
+#### v1.0.2:
+* Refactoring logging for ILIAS 8
 
 #### v1.0.1:
 * Add falling back mechanism to the default ILIAS login, if "ext_account" is not available
