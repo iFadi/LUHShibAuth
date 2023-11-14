@@ -23,12 +23,7 @@ class ilLUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
      * @var string
      */
     const SHIB_MATRICULATION_UPDATE = 'shib_update_matriculation';
-
-    /**
-     * @var null | \ilLogger
-     */
-    private $logger = null;
-
+    
     /**
      * @var null | \ilSetting
      */
@@ -41,7 +36,6 @@ class ilLUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
     {
         global $DIC;
 
-        //ilLoggerFactory::getRootLogger() = $DIC->logger()->auth();
         $this->settings = $DIC->settings();
     }
 
