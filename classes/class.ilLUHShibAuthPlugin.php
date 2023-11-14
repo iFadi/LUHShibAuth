@@ -41,7 +41,7 @@ class ilLUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
     {
         global $DIC;
 
-        //ilLoggerFactory::getRootLogger() = $DIC->logger()->auth();
+        //$this->logger = $DIC->logger()->auth();
         $this->settings = $DIC->settings();
     }
 
@@ -60,7 +60,7 @@ class ilLUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
      */
     public function beforeCreateUser(ilObjUser $user): ilObjUser
     {
-        ilLoggerFactory::getRootLogger()->debug('Before user creation');
+        $this->logger->debug('Before user creation');
         $user = $this->updateMatriculation($user, true);
         $user = $this->createCustomShibLogin($user);
 
@@ -73,7 +73,7 @@ class ilLUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
      */
     public function beforeUpdateUser(ilObjUser $user): ilObjUser
     {
-        ilLoggerFactory::getRootLogger()->debug('Before user update');
+        $this->logger->debug('Before user update');
         $user = $this->updateMatriculation($user, false);
 
         return $user;
@@ -96,10 +96,10 @@ class ilLUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
         // if ext_account is not empty, use it as login
         if (!empty($login)) {
             $user->setLogin($login);
-            ilLoggerFactory::getRootLogger()->debug('ext_accout is found, username is being set now as the LUH-ID:' . $user->getExternalAccount());
+            $this->logger->debug('ext_accout is found, username is being set now as the LUH-ID:' . $user->getExternalAccount());
         }
         else { // else if ext_account is empty do nothing, uses ILIAS default login scheme
-            ilLoggerFactory::getRootLogger()->debug('ext_account is not found, falling back to the ILIAS default login');
+            $this->logger->debug('ext_account is not found, falling back to the ILIAS default login');
         }
 
         return $user;
@@ -114,35 +114,35 @@ class ilLUHShibAuthPlugin extends ilShibbolethAuthenticationPlugin
     {
         $shib_mn_field = $this->settings->get(self::SHIB_MATRICULATION_FIELD, '');
         if (!strlen($shib_mn_field)) {
-            ilLoggerFactory::getRootLogger()->debug('No matriculation number mapping configured');
+            $this->logger->debug('No matriculation number mapping configured');
             return $user;
         }
 
         $shib_mn_update = $this->settings->get(self::SHIB_MATRICULATION_UPDATE, 0 );
         if (!$is_creation_mode && !$shib_mn_update) {
-            ilLoggerFactory::getRootLogger()->debug('No update configured for matriculation in global settings');
+            $this->logger->debug('No update configured for matriculation in global settings');
             return $user;
         }
 
         if (array_key_exists($shib_mn_field, $_SERVER)) {
             $shib_mn_value = trim($_SERVER[$shib_mn_field]);
             if (!strlen($shib_mn_value)) {
-                ilLoggerFactory::getRootLogger()->debug('No matriculation number send by shib server.');
+                $this->logger->debug('No matriculation number send by shib server.');
                 return $user;
             }
 
             $shib_mn_parts = explode(':', $shib_mn_value);
             if($shib_mn_parts === false) {
-                ilLoggerFactory::getRootLogger()->debug('Cannot parse matriculation number: ' . $shib_mn_value);
+                $this->logger->debug('Cannot parse matriculation number: ' . $shib_mn_value);
                 return $user;
             }
 
             $matriculation = end($shib_mn_parts);
-            ilLoggerFactory::getRootLogger()->debug('Update matriculation number: ' . $matriculation);
+            $this->logger->debug('Update matriculation number: ' . $matriculation);
             $user->setMatriculation($matriculation);
         }
         else {
-            ilLoggerFactory::getRootLogger()->debug('No matriculation number found. ');
+            $this->logger->debug('No matriculation number found. ');
         }
         return $user;
     }
