@@ -13,7 +13,7 @@ git clone https://github.com/iFadi/LUHShibAuth.git
 
 Now check a specific Tag:
 ```bash
-git checkout v1.0.2
+git checkout v1.0.3
 ```
 Goto "Administration -> Plugin" and install and activate the plugin.
 
