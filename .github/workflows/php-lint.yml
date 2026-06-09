@@ -1,0 +1,33 @@
+name: PHP Lint
+
+# Lint all PHP sources on pushes and pull requests. ILIAS 10 runs on PHP 8.1–8.3,
+# so the plugin is checked against each to catch version-specific syntax issues.
+
+on:
+  push:
+    branches:
+      - master
+      - "release_*"
+  pull_request:
+
+jobs:
+  php-lint:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ["8.1", "8.2", "8.3"]
+    name: php -l (PHP ${{ matrix.php-version }})
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP ${{ matrix.php-version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: none
+
+      - name: Lint PHP files
+        run: |
+          find . -type f -name "*.php" -not -path "./vendor/*" -print0 \
+            | xargs -0 -n1 -P4 php -l
