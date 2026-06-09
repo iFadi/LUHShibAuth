@@ -1,6 +1,8 @@
 <?php
 
-include_once './Services/AuthShibboleth/classes/class.ilShibbolethAuthenticationPlugin.php';
+// The base class ilShibbolethAuthenticationPlugin is autoloaded by ILIAS.
+// (Its source moved from Services/AuthShibboleth/ to components/ILIAS/AuthShibboleth/
+// in ILIAS 10, so the previously hardcoded include_once no longer resolves.)
 
 /**
  * Shibboleth authentication plugin for:
