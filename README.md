@@ -39,7 +39,15 @@ in your {ILIAS Root} again and check for errors.
 ## Tested on the following ILIAS Versions
 * v10.x
 
-> For **ILIAS 8** use the `master` branch / the `v1.x` tags.
+> `master` now targets **ILIAS 10**. For **ILIAS 8** use the `v1.x` tags.
+
+## Releasing
+
+Versions are maintained manually (the authoritative version is `plugin.php`):
+
+1. Bump `$version` in `plugin.php` and adjust `$ilias_min_version` / `$ilias_max_version` if needed.
+2. Add a `## Changelog` entry below.
+3. Commit, then tag and push: `git tag -a vX.Y.Z -m "vX.Y.Z" && git push origin vX.Y.Z`.
 
 ## Changelog
 
