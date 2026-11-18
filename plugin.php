@@ -2,14 +2,14 @@
 // alphanumerical ID of the plugin; never change this
 $id = 'luhshibauth';
 // code version; must be changed for all code changes
-$version = '2.0.0';
+$version = '3.0.0';
 // ilias min and max version; must always reflect the versions that should
 // run with the plugin
-$ilias_min_version = "10.0";
-$ilias_max_version = "10.999";
+$ilias_min_version = "11.0";
+$ilias_max_version = "11.999";
 
-// optional, but useful: Add one or more responsible persons and a contact email
-$responsible = "Stefan Meyer";
-$responsible_mail = "smeyer.ilias@gmx.de";
-$responsible = "Fadi Asbih";
+// optional, but useful: Add one or more responsible persons and a contact email.
+// ILIAS shows exactly one value each, so both maintainers go into one string
+// (a second assignment would silently overwrite the first).
+$responsible = "Stefan Meyer, Fadi Asbih";
 $responsible_mail = "asbih@elsa.uni-hannover.de";
